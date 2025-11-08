@@ -7,7 +7,7 @@ java -cp ".;libs/jansi-2.4.0.jar" Main
 
 
 And in order to buikd ab executable JAR file run following command:
-jar cfe Main.jar Main -C . .
+jar cfe Main.jar Main -C src .
 
 Then you will be able to run the JAR file
 java -cp "Main.jar;libs/jansi-2.4.0.jar" Main  
