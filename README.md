@@ -1,4 +1,4 @@
-In order to compile the program you need to run following commadn on your windows machine:
+In order to compile the program you need to run following command on your windows machine:
 javac -cp ".;libs/jansi-2.4.0.jar" Main.java model/Tea.java
 
 
