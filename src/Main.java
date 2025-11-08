@@ -1,9 +1,15 @@
 import model.Tea;
+import org.fusesource.jansi.Ansi;
+import org.fusesource.jansi.AnsiConsole;
 
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        @FunctionalInterface
+        interface Countdown {
+            void start();
+        }
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Welcome to Tea Timer!");
@@ -32,8 +38,24 @@ public class Main {
                 return;
         }
 
-        Tea.InnerCountdown countdown = selectedTea.new InnerCountdown();
-        countdown.startCountdown();
+        Countdown countdown = () -> {
+            Runnable printer = () -> {
+                AnsiConsole.systemInstall();
+                for (int i = selectedTea.getBrewTime(); i > 0; i--) {
+                    System.out.println(Ansi.ansi().fgYellow().a("Time left: " + i + " seconds").reset());
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                System.out.println(Ansi.ansi().fgGreen().a("Done! Enjoy your " + selectedTea.getTeaName()).reset());
+                AnsiConsole.systemUninstall();
+            };
+            printer.run();
+        };
+
+        countdown.start();
 
         scanner.close();
     }
